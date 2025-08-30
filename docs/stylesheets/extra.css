@@ -1,0 +1,106 @@
+/* Custom styles for Wappa documentation */
+
+:root {
+  --md-primary-fg-color: #4caf50;
+  --md-primary-fg-color--light: #81c784;
+  --md-primary-fg-color--dark: #2e7d32;
+  --md-accent-fg-color: #4caf50;
+}
+
+/* Hero section styling */
+.hero-section {
+  background: linear-gradient(135deg, #4caf50, #66bb6a);
+  color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+/* Code block enhancements */
+.highlight .hll { background-color: #ffffcc }
+.highlight { background: #f8f8f8; }
+
+/* Custom grid cards styling */
+.grid.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.grid.cards > * {
+  padding: 1rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.2rem;
+  transition: border-color 125ms, box-shadow 125ms;
+}
+
+.grid.cards > *:hover {
+  border-color: var(--md-accent-fg-color);
+  box-shadow: 0 0.2rem 0.5rem rgba(0,0,0,0.05);
+}
+
+/* WhatsApp message styling */
+.whatsapp-message {
+  background: #e7ffdb;
+  border-left: 4px solid #4caf50;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 0.2rem;
+}
+
+/* Architecture diagram styling */
+.mermaid {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+/* Feature highlights */
+.feature-highlight {
+  background: var(--md-code-bg-color);
+  padding: 1rem;
+  border-radius: 0.2rem;
+  margin: 1rem 0;
+}
+
+/* API reference styling */
+.api-method {
+  background: #f5f5f5;
+  padding: 0.5rem;
+  border-radius: 0.2rem;
+  font-family: var(--md-code-font);
+  display: inline-block;
+  margin-right: 0.5rem;
+}
+
+/* Status badges */
+.status-badge {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.2rem;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.status-badge.success {
+  background: #4caf50;
+  color: white;
+}
+
+.status-badge.warning {
+  background: #ff9800;
+  color: white;
+}
+
+.status-badge.error {
+  background: #f44336;
+  color: white;
+}
+
+/* Responsive improvements */
+@media screen and (max-width: 768px) {
+  .grid.cards {
+    grid-template-columns: 1fr;
+  }
+}

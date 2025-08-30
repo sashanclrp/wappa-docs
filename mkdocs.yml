@@ -1,0 +1,146 @@
+site_name: Wappa Documentation
+site_description: Open Source WhatsApp Business Framework for Python
+site_url: https://wappa.mimeia.com/docs
+repo_url: https://github.com/sashanclrp/wappa
+repo_name: sashanclrp/wappa
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: green
+      accent: green
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    # Palette toggle for dark mode  
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: green
+      accent: green
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+  features:
+    - navigation.sections
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.tracking
+    - navigation.indexes
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.integrate
+    - toc.follow
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+  logo: assets/logo.png
+  favicon: assets/favicon.ico
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Quick Start: quickstart.md
+    - Installation: installation.md
+    - First App: first-app.md
+  - Core Concepts:
+    - Architecture: concepts/architecture.md
+    - Event System: concepts/event-system.md
+    - Messaging: concepts/messaging.md
+    - Configuration: concepts/configuration.md
+  - API Reference:
+    - Wappa Core: api/wappa-core.md
+    - Event Handlers: api/event-handlers.md
+    - Messaging API: api/messaging.md
+    - Webhooks API: api/webhooks.md
+    - CLI Reference: api/cli.md
+  - Setup & Deployment:
+    - WhatsApp Setup: setup/whatsapp-setup.md
+    - Railway Deployment: deployment/railway.md
+    - Production Checklist: deployment/production-checklist.md
+  - Developer Guides:
+    - Project Structure: guides/project-structure.md
+    - Testing: guides/testing.md
+    - Deployment: guides/deployment.md
+    - Performance: guides/performance.md
+  - Advanced Topics:
+    - Plugins: advanced/plugins.md
+    - Caching: advanced/caching.md
+    - Multi-tenant: advanced/multi-tenant.md
+  - Resources:
+    - Examples: resources/examples.md
+    - Migration: resources/migration.md
+
+plugins:
+  - search:
+      separator: '[\s\-,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  - mermaid2:
+      arguments:
+        theme: |
+          ^(JSON.parse(__md_get("__palette").index === 1)) ?
+            'dark' : 'light'
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: timeago
+      fallback_to_build_date: true
+  - minify:
+      minify_html: true
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - admonition
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+      combine_header_slug: true
+  - attr_list
+  - md_in_html
+  - footnotes
+  - tables
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - toc:
+      permalink: true
+      title: On this page
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/sashanclrp/wappa
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/wappa/
+  version:
+    provider: mike
+    default: stable
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/extra.js
+
+copyright: >
+  Copyright &copy; 2024 Mimeia - 
+  <a href="#__consent">Change cookie settings</a>
