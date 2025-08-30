@@ -7,20 +7,21 @@ edit_uri: edit/main/docs/
 
 theme:
   name: material
+  custom_dir: overrides
   palette:
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: green
-      accent: green
+      primary: custom
+      accent: custom
       toggle:
         icon: material/weather-sunny
         name: Switch to dark mode
     # Palette toggle for dark mode  
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: green
-      accent: green
+      primary: custom
+      accent: custom
       toggle:
         icon: material/weather-night
         name: Switch to light mode
@@ -39,8 +40,8 @@ theme:
     - content.code.copy
     - content.code.annotate
     - content.tabs.link
-  logo: assets/logo.png
-  favicon: assets/favicon.ico
+  logo: assets/HorizontalWhite.png
+  favicon: assets/favicon_io/favicon.ico
 
 nav:
   - Home: index.md
@@ -83,7 +84,32 @@ plugins:
       arguments:
         theme: |
           ^(JSON.parse(__md_get("__palette").index === 1)) ?
-            'dark' : 'light'
+            'dark' : 'base'
+        themeVariables: |
+          ^(JSON.parse(__md_get("__palette").index === 1)) ?
+            {
+              'primaryColor': '#6366f1',
+              'primaryTextColor': '#fff',
+              'primaryBorderColor': '#4f46e5',
+              'lineColor': '#a855f7',
+              'secondaryColor': '#818cf8',
+              'tertiaryColor': '#c4b5fd',
+              'background': '#0f0f1a',
+              'mainBkg': '#1e1b4b',
+              'secondBkg': '#312e81',
+              'tertiaryBkg': '#4338ca'
+            } : {
+              'primaryColor': '#333481',
+              'primaryTextColor': '#fff',
+              'primaryBorderColor': '#242359',
+              'lineColor': '#333481',
+              'secondaryColor': '#4A90E2',
+              'tertiaryColor': '#5856a6',
+              'background': '#ffffff',
+              'mainBkg': '#333481',
+              'secondBkg': '#4A90E2',
+              'tertiaryBkg': '#5856a6'
+            }
   - git-revision-date-localized:
       enable_creation_date: true
       type: timeago

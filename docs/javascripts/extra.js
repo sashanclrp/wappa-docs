@@ -51,13 +51,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Theme-aware Mermaid configuration
 window.mermaidConfig = {
-  theme: document.querySelector('[data-md-color-scheme]').getAttribute('data-md-color-scheme') === 'slate' ? 'dark' : 'default',
+  theme: document.querySelector('[data-md-color-scheme]') && 
+         document.querySelector('[data-md-color-scheme]').getAttribute('data-md-color-scheme') === 'slate' ? 'dark' : 'default',
   themeVariables: {
-    primaryColor: '#4caf50',
+    primaryColor: '#333481',
     primaryTextColor: '#fff',
-    primaryBorderColor: '#2e7d32',
-    lineColor: '#4caf50',
-    secondaryColor: '#81c784',
-    tertiaryColor: '#c8e6c9'
+    primaryBorderColor: '#242359',
+    lineColor: '#333481',
+    secondaryColor: '#4A90E2',
+    tertiaryColor: '#5856a6',
+    background: '#ffffff',
+    mainBkg: '#333481',
+    secondBkg: '#4A90E2',
+    tertiaryBkg: '#5856a6'
   }
 };

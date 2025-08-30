@@ -1,8 +1,16 @@
+<div class="hero-section">
+<div class="hero-content">
+
 # Wappa - WhatsApp Business Framework
 
 Modern Python library for building WhatsApp Business applications with clean architecture.
 
-![Wappa Logo](assets/wappa-hero.svg){ width="600" }
+<img src="assets/wappa.gif" alt="Wappa Animated Logo" class="wappa-logo-animated fade-in" />
+
+**Build WhatsApp bots in Python, fast.**
+
+</div>
+</div>
 
 ## What is Wappa?
 
@@ -185,9 +193,11 @@ graph TD
     G --> I[Redis/Memory/JSON Cache]
     H --> J[External Services]
     
-    style D fill:#e1f5fe
-    style E fill:#f3e5f5
-    style G fill:#e8f5e8
+    style D fill:#333481,color:#fff
+    style E fill:#4A90E2,color:#fff
+    style G fill:#5856a6,color:#fff
+    style A fill:#25D366,color:#fff
+    style F fill:#25D366,color:#fff
 ```
 
 - **Event-Driven**: Webhook → Event Handler → Response
