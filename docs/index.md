@@ -1,246 +1,294 @@
-<div class="hero-section">
-<div class="hero-content">
-
 # Wappa - WhatsApp Business Framework
 
-Modern Python library for building WhatsApp Business applications with clean architecture.
-
-<img src="assets/wappa.gif" alt="Wappa Animated Logo" class="wappa-logo-animated fade-in" />
-
-**Build WhatsApp bots in Python, fast.**
-
-</div>
+<div style="text-align: center; margin: 2rem 0;">
+<img src="assets/wappa.gif" alt="Wappa Logo" style="max-width: 300px; height: auto;" />
 </div>
 
-## What is Wappa?
+## Build WhatsApp conversational applications in Python, fast
 
-Wappa is an **open source framework** for developing smart workflows, agents, and full chat applications through WhatsApp Business API. Built with modern Python practices and clean architecture principles.
+You have a working WhatsApp conversational app in **5 lines of code**. Yes, really.
 
-## Key Features
+```python
+from wappa import Wappa, WappaEventHandler
 
-<div class="grid cards" markdown>
+class MasterEventHandler(WappaEventHandler):
+    async def process_message(self, webhook):
+        await self.messenger.send_text("Hello! 👋", webhook.user.user_id)
 
--   :rocket: **Simple Import**
-
-    ---
-
-    Clean, minimal interface following Single Responsibility Principle
-
-    ```python
-    from wappa import Wappa, WappaEventHandler
-    ```
-
--   :building_construction: **Clean Architecture**
-
-    ---
-
-    Interface-driven design with dependency injection and SOLID principles
-
-    **Event-driven** • **Type-safe** • **Testable**
-
--   :iphone: **Complete WhatsApp Support**
-
-    ---
-
-    All message types, templates, interactive messages, and media handling
-
-    **Text** • **Images** • **Buttons** • **Lists** • **Templates**
-
--   :wrench: **CLI Tools**
-
-    ---
-
-    Project scaffolding and development tools out of the box
-
-    ```bash
-    wappa init my-bot
-    wappa dev app/main.py
-    ```
-
--   :puzzle: **Plugin System**
-
-    ---
-
-    Extensible architecture with `WappaPlugin` and `WappaBuilder`
-
-    **Redis** • **CORS** • **Rate Limiting** • **Custom Plugins**
-
--   :globe_with_meridians: **Multi-tenant Ready**
-
-    ---
-
-    Built for scaling across multiple WhatsApp Business numbers
-
-    **Tenant isolation** • **Credential management** • **State separation**
-
-</div>
-
-## Quick Example
-
-Get started with a simple echo bot in under 2 minutes:
-
-=== "Simple Setup"
-
-    ```python
-    from wappa import Wappa, WappaEventHandler
-    from wappa.webhooks import IncomingMessageWebhook
-
-    class EchoHandler(WappaEventHandler):
-        async def process_message(self, webhook: IncomingMessageWebhook) -> None:
-            message_text = webhook.get_message_text()
-            user_id = webhook.user.user_id
-            
-            await self.messenger.send_text(
-                recipient=user_id,
-                text=f"🔄 Echo: {message_text}"
-            )
-
-    app = Wappa()
-    app.set_event_handler(EchoHandler())
-    
-    if __name__ == "__main__":
-        app.run()
-    ```
-
-=== "Advanced Setup"
-
-    ```python
-    from wappa import WappaBuilder
-
-    # Production-ready configuration
-    app = (WappaBuilder()
-           .with_whatsapp(
-               token=os.getenv("WP_ACCESS_TOKEN"),
-               phone_id=os.getenv("WP_PHONE_ID"),
-               business_id=os.getenv("WP_BID")
-           )
-           .with_redis_cache("redis://localhost:6379")
-           .with_cors_enabled()
-           .with_rate_limiting(max_requests=100, window=60)
-           .build())
-
-    app.set_event_handler(MyAdvancedHandler())
-    app.run()
-    ```
-
-=== "CLI Setup"
-
-    ```bash
-    # Initialize new project
-    wappa init my-bot
-    cd my-bot
-
-    # Configure environment
-    cp .env.example .env
-    # Edit .env with your WhatsApp credentials
-
-    # Run development server
-    wappa dev app/main.py
-
-    # Or run production server
-    wappa prod app/main.py --workers 4
-    ```
-
-## Installation
-
-=== "uv (Recommended)"
-
-    ```bash
-    # Create new project
-    uv init my-wappa-project
-    cd my-wappa-project
-
-    # Add Wappa
-    uv add wappa
-
-    # Initialize project structure
-    wappa init .
-    ```
-
-=== "pip"
-
-    ```bash
-    pip install wappa
-    
-    # Initialize new project
-    wappa init my-wappa-project
-    cd my-wappa-project
-    ```
-
-=== "Poetry"
-
-    ```bash
-    poetry new my-wappa-project
-    cd my-wappa-project
-    poetry add wappa
-    
-    # Initialize project structure  
-    wappa init .
-    ```
-
-## Architecture Highlights
-
-```mermaid
-graph TD
-    A[WhatsApp User] -->|Message| B[Webhook Endpoint]
-    B --> C[Event Dispatcher]
-    C --> D[Your Event Handler]
-    D --> E[Messenger Interface]
-    E --> F[WhatsApp API]
-    
-    D --> G[State Management]
-    D --> H[Business Logic]
-    G --> I[Redis/Memory/JSON Cache]
-    H --> J[External Services]
-    
-    style D fill:#333481,color:#fff
-    style E fill:#4A90E2,color:#fff
-    style G fill:#5856a6,color:#fff
-    style A fill:#25D366,color:#fff
-    style F fill:#25D366,color:#fff
+app = Wappa()
+app.set_event_handler(MasterEventHandler())
 ```
 
-- **Event-Driven**: Webhook → Event Handler → Response
-- **Type-Safe**: Full Pydantic models for all WhatsApp data structures  
-- **FastAPI Core**: Built on modern async Python with automatic OpenAPI docs
-- **Production Ready**: Docker support, Redis caching, structured logging
+**That's it.** Your conversational app responds to every message with a greeting.
 
-## What's Next?
+**It's that simple. Let's learn more.**
 
-<div class="grid cards" markdown>
+## Why Wappa?
 
--   **[🚀 Quick Start](quickstart.md)**
+### **5-Second Setup, Not 5-Hour Configuration**
 
-    Get a WhatsApp bot running in 5 minutes
+Most WhatsApp frameworks require hours of boilerplate. Wappa gives you a working conversational app immediately.
 
--   **[📱 First App Tutorial](first-app.md)**
+```python
+# Other frameworks - 50+ lines of setup
+# Authentication, webhook routing, message parsing...
 
-    Build a complete customer support bot
+# Wappa - Your business logic only
+class MyApp(WappaEventHandler):
+    async def process_message(self, webhook):
+        # Just write what your app should do
+        await self.messenger.send_text("Welcome!", webhook.user.user_id)
+```
 
--   **[🏗️ Architecture Guide](concepts/architecture.md)**
+### **Smart Defaults, Easy Overrides**
 
-    Understand clean architecture principles
+Everything works out of the box, but you can customize anything.
 
--   **[📚 API Reference](api/wappa-core.md)**
+=== "Default (Memory Cache)"
 
-    Complete API documentation
+    ```python
+    # Default: In-memory caching - perfect for development
+    app = Wappa(cache="memory")
+    app.set_event_handler(MyEventHandler())
+    ```
 
--   **[🛠️ Setup WhatsApp API](setup/whatsapp-setup.md)**
+=== "Redis Caching"
 
-    Configure WhatsApp Business API
+    ```python
+    # Production: Redis caching (requires REDIS_URL in settings)
+    app = Wappa(cache="redis")
+    app.set_event_handler(MyEventHandler())
+    
+    # Automatic Redis plugin integration
+    # Uses settings.redis_url from environment
+    ```
 
--   **[🚂 Deploy to Railway](deployment/railway.md)**
+=== "Enterprise Full Customization"
 
-    Production deployment guide
+    ```python
+    # Enterprise: Full customization with WappaBuilder
+    from wappa.core.factory import WappaBuilder
+    from wappa.core.plugins import RedisPlugin, CORSPlugin, RateLimitPlugin
+    
+    builder = WappaBuilder()
+    builder.add_plugin(RedisPlugin())
+    builder.add_plugin(CORSPlugin(allow_origins=["*"]))
+    builder.add_plugin(RateLimitPlugin())
+    app_instance = builder.build()
+    
+    # Or use Wappa with plugins and middleware
+    app = Wappa(cache="redis")
+    app.add_plugin(CORSPlugin(allow_origins=["*"]))
+    app.add_middleware(SomeMiddleware, priority=30)
+    app.add_startup_hook(my_startup_function, priority=50)
+    app.set_event_handler(MyEventHandler())
+    ```
 
-</div>
+### **All Message Types, Zero Complexity**
+
+Send anything WhatsApp supports with simple method calls.
+
+```python
+from wappa.messaging.whatsapp.models.interactive_models import ReplyButton
+
+# Text messages
+await self.messenger.send_text("Hello!", user_id)
+
+# Interactive buttons with proper schemas
+buttons = [
+    ReplyButton(id="yes", title="Yes"), 
+    ReplyButton(id="no", title="No")
+]
+await self.messenger.send_button_message(
+    buttons=buttons, 
+    recipient=user_id, 
+    body="Confirm order?"
+)
+
+# Media files
+await self.messenger.send_image("/path/to/image.jpg", user_id, "Check this out!")
+
+# Templates, lists, locations, contacts... it's all there
+```
+
+### **Production-Ready from Day One**
+
+Built for scale, optimized for developer experience.
+
+**Built-in features you'd spend weeks building:**
+
+✅ Plugin-based architecture with WappaBuilder  
+✅ Multiple cache backends (memory, JSON, Redis)  
+✅ Event-driven webhook handling with dependency injection  
+✅ Structured logging with context management  
+✅ Built-in middleware support (CORS, auth, rate limiting)  
+✅ Lifecycle management (startup/shutdown hooks)
 
 ---
 
-## Community & Support
+## Installation (30 Seconds)
 
-- **[GitHub Repository](https://github.com/sashanclrp/wappa)** - Source code and issues
-- **[Example Projects](resources/examples.md)** - 6 complete example applications
-- **[Migration Guide](resources/migration.md)** - Version updates and changelog
+Install Wappa using `uv` (the fast Python package manager):
 
-*Built with ❤️ by [Mimeia](https://mimeia.com) • Open Source • MIT License*
+```bash
+# Install Wappa
+uv add wappa
+
+# Create your first conversational app
+uv run wappa init my-app
+cd my-app
+
+# Add your WhatsApp credentials to .env
+echo "WP_ACCESS_TOKEN=your_token_here" >> .env
+echo "WP_PHONE_ID=your_phone_id_here" >> .env
+echo "WP_BID=your_business_id_here" >> .env
+```
+
+**Don't have WhatsApp credentials yet?** Follow our [WhatsApp Setup Guide](setup/whatsapp-setup.md) (5 minutes).
+
+---
+
+## Run Your Conversational App
+
+=== "Development"
+
+    ```bash
+    # Start development server with auto-reload
+    uv run wappa dev app/main.py
+
+    # Your app is now running at http://localhost:8000
+    # Any code changes automatically restart the server
+    ```
+
+=== "Production"
+
+    ```bash
+    # Using Wappa CLI (recommended for most cases)
+    uv run wappa prod app/main.py --workers 4
+
+    # Your production app is running with 4 workers
+    # Optimized for performance and stability
+    ```
+
+=== "Production (uvicorn)"
+
+    ```bash
+    # Direct uvicorn control (advanced deployment)
+    uv run uvicorn app.main:app.asgi \
+        --host 0.0.0.0 \
+        --port 8000 \
+        --workers 4 \
+        --access-log \
+        --loop uvloop
+
+    # Full control over uvicorn configuration
+    # Best for Docker containers and advanced deployments
+    ```
+
+---
+
+## Quick Examples
+
+=== "Echo App (1 minute)"
+
+    ```python
+    # app/master_event.py
+    from wappa import WappaEventHandler
+
+    class EchoApp(WappaEventHandler):
+        async def process_message(self, webhook):
+            # Echo back whatever the user sent
+            message_text = webhook.message.text.body
+            await self.messenger.send_text(f"You said: {message_text}", webhook.user.user_id)
+    ```
+
+=== "Customer Service (5 minutes)"
+
+    ```python
+    from wappa.messaging.whatsapp.models.interactive_models import ReplyButton
+    
+    class CustomerServiceApp(WappaEventHandler):
+        async def process_message(self, webhook):
+            user_message = webhook.message.text.body.lower()
+            user_id = webhook.user.user_id
+            
+            if "hours" in user_message:
+                await self.messenger.send_text("We're open Mon-Fri 9AM-6PM", user_id)
+            elif "support" in user_message:
+                await self.messenger.send_text("Connecting you with support...", user_id)
+            else:
+                # Show interactive menu using proper Wappa schemas
+                buttons = [
+                    ReplyButton(id="hours", title="Store Hours"),
+                    ReplyButton(id="support", title="Get Support"),
+                    ReplyButton(id="location", title="Find Us")
+                ]
+                await self.messenger.send_button_message(
+                    buttons=buttons,
+                    recipient=user_id,
+                    body="How can I help you today?"
+                )
+    ```
+
+=== "Advanced: Order Processing with State"
+
+    ```python
+    class OrderApp(WappaEventHandler):
+        async def process_message(self, webhook):
+            user_id = webhook.user.user_id
+            
+            # Get user's current state (handled automatically by Wappa)
+            user_state = await self.cache.get_user_state(user_id)
+            
+            if user_state.get("step") == "ordering":
+                # User is in ordering flow
+                product = webhook.message.text.body
+                await self.cache.set_user_state(user_id, {"step": "confirm", "product": product})
+                await self.messenger.send_text(f"Add {product} to cart?", user_id)
+            else:
+                # Start new conversation
+                await self.cache.set_user_state(user_id, {"step": "ordering"})
+                await self.messenger.send_text("What would you like to order?", user_id)
+    ```
+
+**Want more examples?** Browse our [6 complete example applications](resources/examples.md) from basic to production-ready.
+
+---
+
+## Convinced? Let's Build Something Real
+
+Ready to create your first production conversational app? Our Quick Start guide walks you through building a complete customer service application in 5 minutes.
+
+<a href="quickstart" class="md-button md-button--primary" style="
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    color: white;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    transition: all 0.3s ease;
+    display: inline-block;
+    margin: 1rem 0;
+">🚀 Start Building →</a>
+
+Or explore what's possible:
+
+- **[Complete API Reference](api/wappa-core.md)** - Every method, explained with examples
+- **[Example Applications](resources/examples.md)** - 6 real conversational apps you can learn from  
+- **[Deployment Guide](deployment/railway.md)** - From code to production in 10 minutes
+- **[Advanced Features](api/cache.md)** - Caching, state management, multi-tenant apps
+
+---
+
+**Ready to start?** Create your first conversational app now:
+
+```bash
+uv add wappa && uv run wappa init my-app
+```
+
+*Copy and paste this command to get started instantly! 🎯*
+
+**Questions?** [Join our WhatsApp community](https://chat.whatsapp.com/GXXwfkP1ZoA6Ypjnb9mgiv) for help and discussions.

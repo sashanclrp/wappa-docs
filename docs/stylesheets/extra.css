@@ -21,6 +21,56 @@
   --wappa-gradient-secondary: linear-gradient(135deg, #5856a6, #6BA3E8);
 }
 
+/* Heading hierarchy fixes - reduced prominence, lighter weight */
+.md-typeset h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 2rem 0 1.5rem 0;
+  line-height: 1.2;
+}
+
+.md-typeset h2 {
+  font-size: 1.6rem;
+  font-weight: normal !important;
+  margin: 2rem 0 1rem 0;
+  line-height: 1.4;
+  color: var(--md-default-fg-color--light);
+}
+
+.md-typeset h3 {
+  font-size: 1.3rem;
+  font-weight: normal !important;
+  margin: 1.5rem 0 0.75rem 0;
+  line-height: 1.4;
+  color: var(--md-default-fg-color--light);
+}
+
+.md-typeset h4 {
+  font-size: 1.1rem;
+  font-weight: normal !important;
+  margin: 1.25rem 0 0.5rem 0;
+  line-height: 1.4;
+  color: var(--md-default-fg-color--lighter);
+}
+
+.md-typeset h5 {
+  font-size: 1rem;
+  font-weight: normal !important;
+  margin: 1rem 0 0.5rem 0;
+  line-height: 1.5;
+  color: var(--md-default-fg-color--lighter);
+}
+
+.md-typeset h6 {
+  font-size: 0.9rem;
+  font-weight: normal !important;
+  margin: 1rem 0 0.5rem 0;
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--md-default-fg-color--lighter);
+}
+
 /* Dark mode custom colors - Bluish/Purpleish theme */
 [data-md-color-scheme="slate"] {
   --md-primary-fg-color: #6366f1;
@@ -52,54 +102,55 @@
   --wappa-gradient-secondary: linear-gradient(135deg, #4f46e5, #7c3aed);
 }
 
-/* Animated Wappa logo styling - more elegant and smaller */
+
+/* Animated Wappa logo styling - ensure it's visible */
 .wappa-logo-animated {
   display: block;
-  max-width: 120px;
+  max-width: 300px;
+  width: auto;
   height: auto;
-  margin: 1.5rem auto;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+  margin: 2rem auto;
+  background: none !important;
 }
 
-/* Hero section styling - cleaner and more elegant */
+/* Remove hero section background styling - let GIF show naturally */
 .hero-section {
-  background: var(--wappa-gradient-primary);
-  color: white;
-  padding: 3rem 2rem 2.5rem;
-  border-radius: 16px;
-  margin-bottom: 3rem;
+  background: none;
+  color: inherit;
+  padding: 2rem 0;
+  margin-bottom: 2rem;
   text-align: center;
   position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px rgba(51, 52, 129, 0.3);
+  border: none;
+  box-shadow: none;
 }
 
-/* Dark mode hero styling */
+/* Dark mode hero styling - no special styling needed */
 [data-md-color-scheme="slate"] .hero-section {
-  box-shadow: 0 8px 32px rgba(99, 102, 241, 0.4);
-  border: 1px solid rgba(168, 85, 247, 0.2);
+  box-shadow: none;
 }
 
 .hero-content {
   position: relative;
-  z-index: 1;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .hero-content h1 {
   margin-bottom: 1rem;
-  font-size: 2.2rem;
+  font-size: 2.5rem;
   font-weight: 700;
   line-height: 1.2;
 }
 
 .hero-content p {
   font-size: 1.1rem;
-  opacity: 0.9;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.6;
 }
 
 .hero-content strong {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 600;
   display: block;
   margin-top: 1rem;
@@ -192,6 +243,31 @@
   padding: 2rem;
   background: var(--md-code-bg-color);
   border-radius: 8px;
+}
+
+/* Mermaid diagram dark mode text visibility fixes */
+[data-md-color-scheme="slate"] .mermaid .nodeLabel,
+[data-md-color-scheme="slate"] .mermaid .edgeLabel {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+}
+
+/* Ensure Mermaid node text is visible in dark mode */
+[data-md-color-scheme="slate"] .mermaid .node text,
+[data-md-color-scheme="slate"] .mermaid .cluster text,
+[data-md-color-scheme="slate"] .mermaid .label text {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+}
+
+/* Light mode Mermaid text styling */
+[data-md-color-scheme="default"] .mermaid .nodeLabel,
+[data-md-color-scheme="default"] .mermaid .edgeLabel,
+[data-md-color-scheme="default"] .mermaid .node text,
+[data-md-color-scheme="default"] .mermaid .cluster text,
+[data-md-color-scheme="default"] .mermaid .label text {
+  fill: #ffffff !important;
+  color: #ffffff !important;
 }
 
 /* Feature highlights */
@@ -289,17 +365,17 @@
   border-color: var(--md-primary-fg-color);
 }
 
-/* Navbar logo sizing */
+/* Navbar logo sizing - compact for smaller menu bar */
 .md-header__button.md-logo img,
 .md-header__button.md-logo svg {
   width: auto;
-  height: 2.5rem; /* Increased from default ~1.2rem */
-  max-width: 150px;
+  height: 1.4rem; /* Even smaller to reduce menu bar height */
+  max-width: 36px; /* Constrain width for compact isotipo */
 }
 
 .md-header__button.md-logo {
-  margin: 0.2rem;
-  padding: 0.2rem;
+  margin: 0.3rem;
+  padding: 0.3rem;
 }
 
 /* Custom scrollbar for webkit browsers */
@@ -339,33 +415,89 @@
   }
   
   .hero-section {
-    padding: 2rem 1.5rem;
+    padding: 2.5rem 1.5rem;
     margin-bottom: 2rem;
-    border-radius: 12px;
+    border-radius: 16px;
   }
   
   .hero-content h1 {
-    font-size: 1.8rem;
+    font-size: 2.2rem;
+    flex-direction: column;
+    gap: 0.5rem;
   }
   
   .hero-content p {
-    font-size: 1rem;
-  }
-  
-  .hero-content strong {
     font-size: 1.1rem;
   }
   
+  .hero-content strong {
+    font-size: 1.2rem;
+    padding: 0.6rem 1.5rem;
+  }
+  
   .wappa-logo-animated {
-    max-width: 100px;
-    margin: 1rem auto;
+    max-width: 28px;
+    margin: 0 0.2rem 0 0;
   }
   
   .md-header__button.md-logo img,
   .md-header__button.md-logo svg {
-    height: 2rem; /* Slightly smaller on mobile */
-    max-width: 120px;
+    height: 1.2rem; /* Compact isotipo on mobile */
+    max-width: 32px; /* Constrain width for mobile */
   }
+}
+
+/* Footer styling to match navigation colors */
+.md-footer {
+  background: var(--md-nav-bg-color, var(--md-primary-fg-color)) !important;
+  color: var(--md-nav-fg-color, white) !important;
+}
+
+.md-footer-meta {
+  background: var(--md-nav-bg-color, var(--md-primary-fg-color)) !important;
+}
+
+.md-footer-meta__inner {
+  color: var(--md-nav-fg-color, white) !important;
+}
+
+.md-footer-copyright {
+  color: var(--md-nav-fg-color--light, rgba(255, 255, 255, 0.8)) !important;
+}
+
+.md-footer-copyright__highlight {
+  color: var(--md-nav-fg-color, white) !important;
+}
+
+.md-footer a {
+  color: var(--md-nav-fg-color, white) !important;
+}
+
+.md-footer a:hover {
+  color: var(--md-accent-fg-color, var(--md-primary-fg-color--light)) !important;
+  text-decoration: underline;
+}
+
+/* Dark mode footer adjustments */
+[data-md-color-scheme="slate"] .md-footer {
+  background: var(--md-nav-bg-color, #1a1625) !important;
+}
+
+[data-md-color-scheme="slate"] .md-footer-meta {
+  background: var(--md-nav-bg-color, #1a1625) !important;
+}
+
+/* Social icons in footer */
+.md-footer .md-social {
+  padding: 0;
+}
+
+.md-footer .md-social__link {
+  color: var(--md-nav-fg-color--light, rgba(255, 255, 255, 0.8)) !important;
+}
+
+.md-footer .md-social__link:hover {
+  color: var(--md-accent-fg-color, white) !important;
 }
 
 /* Print styles */
