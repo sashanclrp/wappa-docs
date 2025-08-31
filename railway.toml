@@ -8,12 +8,9 @@ healthcheckTimeout = 30
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 3
 
-# Railway will automatically assign a port, nginx listens on 80
-startCommand = "nginx -g 'daemon off;'"
-
-# Environment for the build process
-[build.env]
-NODE_ENV = "production"
+# Environment variables for Railway
+[deploy.env]
+GIT_PYTHON_REFRESH = "quiet"
 
 # Service configuration
 [service]

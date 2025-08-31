@@ -1,87 +1,46 @@
-# Multi-stage build for Wappa Documentation
-# Optimized for Railway deployment with Material-MkDocs
+# Production Dockerfile for Wappa Documentation
+# Based on official MkDocs Material deployment patterns
 
-# Build stage - Generate static documentation site
-FROM python:3.12-slim as builder
+FROM python:3.12-slim
 
-WORKDIR /app
+WORKDIR /docs
 
-# Install uv for fast dependency management
-RUN pip install uv
+# Install system dependencies for MkDocs Material
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    libcairo2-dev \
+    libfreetype6-dev \
+    libffi-dev \
+    libjpeg-dev \
+    libpng-dev \
+    libz-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy dependency files
+# Install MkDocs Material with imaging support
+RUN pip install "mkdocs-material[imaging]"
+
+# Install additional plugins from pyproject.toml
 COPY pyproject.toml ./
-COPY uv.lock ./
-
-# Install documentation dependencies
-RUN uv sync --frozen
+RUN pip install mkdocs-mermaid2-plugin mkdocs-git-revision-date-localized-plugin mkdocs-minify-plugin
 
 # Copy documentation source files
 COPY docs/ ./docs/
 COPY mkdocs.yml ./
 COPY overrides/ ./overrides/
 
-# Build static documentation site
-RUN uv run mkdocs build --clean --strict
+# Set environment to suppress git warnings (they're harmless)
+ENV GIT_PYTHON_REFRESH=quiet
 
-# Production stage - Serve with nginx
-FROM nginx:alpine
+# Railway uses PORT environment variable, default to 8000
+ENV PORT=8000
 
-# Copy built documentation from builder stage
-COPY --from=builder /app/site /usr/share/nginx/html
+# Expose port for Railway
+EXPOSE $PORT
 
-# Create custom nginx configuration for single-page app routing
-RUN echo 'server { \
-    listen 80; \
-    listen [::]:80; \
-    server_name _; \
-    \
-    root /usr/share/nginx/html; \
-    index index.html; \
-    \
-    # Enable gzip compression \
-    gzip on; \
-    gzip_vary on; \
-    gzip_min_length 1024; \
-    gzip_proxied any; \
-    gzip_comp_level 6; \
-    gzip_types \
-        text/plain \
-        text/css \
-        text/xml \
-        text/javascript \
-        application/javascript \
-        application/xml+rss \
-        application/json; \
-    \
-    # Cache static assets \
-    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ { \
-        expires 1y; \
-        add_header Cache-Control "public, immutable"; \
-        access_log off; \
-    } \
-    \
-    # Handle all routes for documentation \
-    location / { \
-        try_files $uri $uri/ $uri.html /index.html; \
-    } \
-    \
-    # Security headers \
-    add_header X-Frame-Options "SAMEORIGIN" always; \
-    add_header X-Content-Type-Options "nosniff" always; \
-    add_header X-XSS-Protection "1; mode=block" always; \
-    add_header Referrer-Policy "strict-origin-when-cross-origin" always; \
-}' > /etc/nginx/conf.d/default.conf
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+    CMD curl -f http://localhost:$PORT/ || exit 1
 
-# Health check for Railway
-HEALTHCHECK --interval=30s --timeout=3s --start-period=30s --retries=3 \
-    CMD curl -f http://localhost:80/ || exit 1
-
-# Install curl for health checks
-RUN apk add --no-cache curl
-
-# Expose port 80 for Railway
-EXPOSE 80
-
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Start MkDocs server on Railway's assigned port
+CMD mkdocs serve --dev-addr 0.0.0.0:$PORT
