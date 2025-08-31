@@ -40,42 +40,48 @@ theme:
     - content.code.copy
     - content.code.annotate
     - content.tabs.link
-  logo: assets/HorizontalWhite.png
+  logo: assets/IsotipoWhite.png
   favicon: assets/favicon_io/favicon.ico
 
 nav:
-  - Home: index.md
+  - Wappa: index.md
   - Getting Started:
+    - Overview: getting-started.md
     - Quick Start: quickstart.md
     - Installation: installation.md
-    - First App: first-app.md
   - Core Concepts:
+    - Overview: concepts.md
     - Architecture: concepts/architecture.md
     - Event System: concepts/event-system.md
+    - State Management: concepts/state-management.md
     - Messaging: concepts/messaging.md
     - Configuration: concepts/configuration.md
   - API Reference:
+    - Overview: api.md
     - Wappa Core: api/wappa-core.md
     - Event Handlers: api/event-handlers.md
     - Messaging API: api/messaging.md
     - Webhooks API: api/webhooks.md
+    - Cache API: api/cache.md
     - CLI Reference: api/cli.md
   - Setup & Deployment:
+    - Overview: setup.md
     - WhatsApp Setup: setup/whatsapp-setup.md
     - Railway Deployment: deployment/railway.md
     - Production Checklist: deployment/production-checklist.md
-  - Developer Guides:
-    - Project Structure: guides/project-structure.md
-    - Testing: guides/testing.md
-    - Deployment: guides/deployment.md
-    - Performance: guides/performance.md
-  - Advanced Topics:
-    - Plugins: advanced/plugins.md
-    - Caching: advanced/caching.md
-    - Multi-tenant: advanced/multi-tenant.md
+  # - Developer Guides:
+  #   - Project Structure: guides/project-structure.md
+  #   - Testing: guides/testing.md
+  #   - Deployment: guides/deployment.md
+  #   - Performance: guides/performance.md
+  # - Advanced Topics:
+  #   - Plugins: advanced/plugins.md
+  #   - Caching: advanced/caching.md
+  #   - Multi-tenant: advanced/multi-tenant.md
   - Resources:
+    - Overview: resources.md
     - Examples: resources/examples.md
-    - Migration: resources/migration.md
+    # - Migration: resources/migration.md
 
 plugins:
   - search:
@@ -88,27 +94,35 @@ plugins:
         themeVariables: |
           ^(JSON.parse(__md_get("__palette").index === 1)) ?
             {
-              'primaryColor': '#6366f1',
-              'primaryTextColor': '#fff',
-              'primaryBorderColor': '#4f46e5',
-              'lineColor': '#a855f7',
-              'secondaryColor': '#818cf8',
-              'tertiaryColor': '#c4b5fd',
-              'background': '#0f0f1a',
-              'mainBkg': '#1e1b4b',
-              'secondBkg': '#312e81',
-              'tertiaryBkg': '#4338ca'
-            } : {
-              'primaryColor': '#333481',
-              'primaryTextColor': '#fff',
-              'primaryBorderColor': '#242359',
+              'primaryColor': 'rgba(51, 52, 129, 0.2)',
+              'primaryTextColor': '#ffffff',
+              'primaryBorderColor': '#333481',
               'lineColor': '#333481',
-              'secondaryColor': '#4A90E2',
-              'tertiaryColor': '#5856a6',
+              'secondaryColor': 'rgba(74, 144, 226, 0.2)',
+              'tertiaryColor': 'rgba(37, 211, 102, 0.2)',
+              'background': '#0f0f1a',
+              'mainBkg': 'rgba(51, 52, 129, 0.2)',
+              'secondBkg': 'rgba(74, 144, 226, 0.2)', 
+              'tertiaryBkg': 'rgba(37, 211, 102, 0.2)',
+              'nodeBorder': '#333481',
+              'clusterBkg': '#1e1b4b',
+              'edgeLabelBackground': '#0f0f1a',
+              'nodeTextColor': '#ffffff'
+            } : {
+              'primaryColor': 'rgba(51, 52, 129, 0.15)',
+              'primaryTextColor': '#333481',
+              'primaryBorderColor': '#333481',
+              'lineColor': '#333481',
+              'secondaryColor': 'rgba(74, 144, 226, 0.15)',
+              'tertiaryColor': 'rgba(37, 211, 102, 0.15)',
               'background': '#ffffff',
-              'mainBkg': '#333481',
-              'secondBkg': '#4A90E2',
-              'tertiaryBkg': '#5856a6'
+              'mainBkg': 'rgba(51, 52, 129, 0.15)',
+              'secondBkg': 'rgba(74, 144, 226, 0.15)',
+              'tertiaryBkg': 'rgba(37, 211, 102, 0.15)',
+              'nodeBorder': '#333481',
+              'clusterBkg': '#f8f9fa',
+              'edgeLabelBackground': '#ffffff',
+              'nodeTextColor': '#333481'
             }
   - git-revision-date-localized:
       enable_creation_date: true
@@ -168,5 +182,5 @@ extra_javascript:
   - javascripts/extra.js
 
 copyright: >
-  Copyright &copy; 2024 Mimeia - 
+  Copyright &copy; 2025 Mimeia - 
   <a href="#__consent">Change cookie settings</a>

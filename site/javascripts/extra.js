@@ -49,20 +49,25 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// Theme-aware Mermaid configuration
+// Theme-aware Mermaid configuration with Wappa branding
 window.mermaidConfig = {
   theme: document.querySelector('[data-md-color-scheme]') && 
-         document.querySelector('[data-md-color-scheme]').getAttribute('data-md-color-scheme') === 'slate' ? 'dark' : 'default',
+         document.querySelector('[data-md-color-scheme]').getAttribute('data-md-color-scheme') === 'slate' ? 'dark' : 'base',
   themeVariables: {
+    // Wappa brand colors for both modes
     primaryColor: '#333481',
-    primaryTextColor: '#fff',
+    primaryTextColor: '#ffffff',
     primaryBorderColor: '#242359',
     lineColor: '#333481',
     secondaryColor: '#4A90E2',
-    tertiaryColor: '#5856a6',
+    tertiaryColor: '#25D366', // WhatsApp green
     background: '#ffffff',
     mainBkg: '#333481',
     secondBkg: '#4A90E2',
-    tertiaryBkg: '#5856a6'
+    tertiaryBkg: '#25D366',
+    nodeBorder: '#333481',
+    nodeTextColor: '#ffffff',
+    clusterBkg: '#f8f9fa',
+    edgeLabelBackground: '#ffffff'
   }
 };

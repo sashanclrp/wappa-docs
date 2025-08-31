@@ -1,0 +1,24 @@
+[build]
+builder = "dockerfile"
+dockerfile = "Dockerfile"
+
+[deploy]
+healthcheckPath = "/"
+healthcheckTimeout = 30
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3
+
+# Railway will automatically assign a port, nginx listens on 80
+startCommand = "nginx -g 'daemon off;'"
+
+# Environment for the build process
+[build.env]
+NODE_ENV = "production"
+
+# Service configuration
+[service]
+name = "wappa-docs"
+
+# Automatic deployment on git push
+[triggers]
+main = true
